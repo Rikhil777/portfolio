@@ -1,0 +1,41 @@
+{% extends 'portfolio/base.html' %}
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section style="max-width: 520px; margin: 4rem auto;">
+    <p class="section-title">Contact</p>
+    <h2 style="color:#fff; font-weight:700; margin-bottom:0.5rem;">Get in touch</h2>
+    <p style="color:#666; margin-bottom:2rem;">
+        Fill out the form below and I'll get back to you as soon as possible.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div style="margin-bottom:1.25rem;">
+            <label style="color:#aaa; font-size:0.8rem; display:block; margin-bottom:6px;">Your Name</label>
+            <input type="text" name="name" required
+                style="width:100%; background:#161616; border:1px solid #2a2a2a; border-radius:8px;
+                       color:#fff; padding:10px 14px; font-size:0.9rem; outline:none;">
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+            <label style="color:#aaa; font-size:0.8rem; display:block; margin-bottom:6px;">Your Email</label>
+            <input type="email" name="email" required
+                style="width:100%; background:#161616; border:1px solid #2a2a2a; border-radius:8px;
+                       color:#fff; padding:10px 14px; font-size:0.9rem; outline:none;">
+        </div>
+
+        <div style="margin-bottom:1.5rem;">
+            <label style="color:#aaa; font-size:0.8rem; display:block; margin-bottom:6px;">Message</label>
+            <textarea name="message" rows="5" required
+                style="width:100%; background:#161616; border:1px solid #2a2a2a; border-radius:8px;
+                       color:#fff; padding:10px 14px; font-size:0.9rem; outline:none; resize:vertical;"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;">
+            Send Message
+        </button>
+    </form>
+</section>
+{% endblock %}

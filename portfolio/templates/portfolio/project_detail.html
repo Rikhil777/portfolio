@@ -1,0 +1,13 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+
+  <a href="/" class="btn btn-outline-secondary btn-sm mb-3">&larr; Back</a>
+
+  <h1>{{ project.title }}</h1>
+  <p>{{ project.description }}</p>
+  <a href="{{ project.github_url }}" target="_blank" class="btn btn-dark">View on GitHub</a>
+
+{% endblock %}

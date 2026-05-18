@@ -1,0 +1,236 @@
+html, body {
+    background-color: #0f0f0f !important;
+    color: #e0e0e0 !important;
+    min-height: 100vh;
+}
+
+/* Force Bootstrap container to stay dark */
+.container, .container-fluid {
+    background-color: transparent !important;
+}
+
+/* Fix Bootstrap's default white card background */
+.card {
+    background: #111 !important;
+    border: 1px solid #1e1e1e !important;
+    color: #e0e0e0 !important;
+}
+
+/* Fix any white sections Bootstrap sneaks in */
+section, div {
+    background-color: transparent;
+}
+
+/* ── Base ───────────────────────────────────── */
+* {
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0f0f0f;
+    color: #e0e0e0;
+    margin: 0;
+}
+
+/* ── Navbar ─────────────────────────────────── */
+.navbar {
+    background: #0f0f0f !important;
+    border-bottom: 1px solid #1a1a1a;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff !important;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: #666;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 0.88rem;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover { color: #fff; }
+
+/* ── Hero ───────────────────────────────────── */
+.hero { padding: 5rem 0 4rem; }
+
+.hero-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #2a2a2a;
+    margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    color: #fff;
+    margin: 0 0 1rem;
+}
+
+.hero p {
+    font-size: 1rem;
+    color: #666;
+    max-width: 480px;
+    line-height: 1.7;
+}
+
+.available-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #0f1f0f;
+    border: 1px solid #1a3a1a;
+    color: #4CAF50;
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 1.5rem;
+}
+
+.available-dot {
+    width: 6px;
+    height: 6px;
+    background: #4CAF50;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+}
+
+/* ── Section titles ─────────────────────────── */
+.section-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Cards ──────────────────────────────────── */
+.card {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.card:hover {
+    border-color: #333;
+    transform: translateY(-2px);
+}
+
+/* ── Buttons ────────────────────────────────── */
+.btn-primary {
+    background: #fff;
+    color: #000;
+    border: none;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 8px 18px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover { background: #ddd; color: #000; }
+
+.btn-outline {
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #2a2a2a;
+    font-size: 0.82rem;
+    padding: 8px 18px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-outline:hover { border-color: #555; color: #fff; }
+
+/* ── Skill bars ─────────────────────────────── */
+.skill-bar-bg {
+    background: #1a1a1a;
+    border-radius: 99px;
+    height: 5px;
+    margin-top: 6px;
+}
+
+.skill-bar-fill {
+    height: 5px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #fff, #aaa);
+    transition: width 1s ease;
+}
+
+/* ── Tags ───────────────────────────────────── */
+.tag {
+    display: inline-block;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: #777;
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 99px;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+
+/* ── Form inputs ────────────────────────────── */
+.form-input {
+    width: 100%;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    color: #fff;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-input:focus { border-color: #555; }
+
+/* ── Divider ────────────────────────────────── */
+.section-divider {
+    border: none;
+    border-top: 1px solid #1a1a1a;
+    margin: 1rem 0 3rem;
+}
+
+/* ── Project image ──────────────────────────── */
+.project-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #1e1e1e;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}

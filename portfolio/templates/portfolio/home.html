@@ -1,0 +1,319 @@
+{% extends 'portfolio/base.html' %}
+
+{% load static %}
+
+{% block title %}Kakan — Django Developer{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Hero -->
+<section style="padding: 6rem 0 5rem;">
+    <div class="row align-items-center g-5">
+
+        <!-- Left: Text content -->
+        <div class="col-lg-7">
+
+            <!-- Available badge -->
+            {% if profile.available_for_work %}
+            <div class="available-badge" style="margin-bottom: 2rem;">
+                <span class="available-dot"></span>
+                Available for work
+            </div>
+            {% endif %}
+
+            <!-- Name -->
+            <h1 style="font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 800;
+                       line-height: 1.05; letter-spacing: -3px; color: #fff; margin-bottom: 1.25rem;">
+                Hi, I'm<br>
+                <span style="background: linear-gradient(135deg, #fff 0%, #888 100%);
+                             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                             background-clip: text;">
+                    {{ profile.name }}
+                </span>
+            </h1>
+
+            <!-- Tagline -->
+            <p style="font-size: 1.1rem; color: #666; line-height: 1.8;
+                      max-width: 480px; margin-bottom: 2.5rem;">
+                {{ profile.tagline }}
+            </p>
+
+            <!-- Buttons row -->
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <a href="#projects" class="btn-primary"
+                   style="padding: 12px 24px; font-size: 0.9rem;">
+                    View my work
+                </a>
+                {% if profile.github_url %}
+                <a href="{{ profile.github_url }}" target="_blank" class="btn-outline"
+                   style="padding: 12px 20px; font-size: 0.9rem;">
+                    GitHub →
+                </a>
+                {% endif %}
+                {% if profile.linkedin_url %}
+                <a href="{{ profile.linkedin_url }}" target="_blank" class="btn-outline"
+                   style="padding: 12px 20px; font-size: 0.9rem;">
+                    LinkedIn →
+                </a>
+                {% endif %}
+                <a href="{% url 'contact' %}" class="btn-outline"
+                   style="padding: 12px 20px; font-size: 0.9rem;">
+                    Contact me
+                </a>
+            </div>
+
+            <!-- Quick stats -->
+            <div style="display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem;
+                        border-top: 1px solid #1a1a1a; flex-wrap: wrap;">
+                <div>
+                    <p style="font-size: 1.6rem; font-weight: 700; color: #fff; margin: 0; line-height: 1;">
+                        {{ projects.count }}
+                    </p>
+                    <p style="font-size: 0.75rem; color: #555; margin: 4px 0 0;
+                              letter-spacing: 1px; text-transform: uppercase;">Projects</p>
+                </div>
+                <div>
+                    <p style="font-size: 1.6rem; font-weight: 700; color: #fff; margin: 0; line-height: 1;">
+                        {{ certifications.count }}
+                    </p>
+                    <p style="font-size: 0.75rem; color: #555; margin: 4px 0 0;
+                              letter-spacing: 1px; text-transform: uppercase;">Certifications</p>
+                </div>
+                <div>
+                    <p style="font-size: 1.6rem; font-weight: 700; color: #fff; margin: 0; line-height: 1;">
+                        {{ skills.count }}
+                    </p>
+                    <p style="font-size: 0.75rem; color: #555; margin: 4px 0 0;
+                              letter-spacing: 1px; text-transform: uppercase;">Skills</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right: Profile photo -->
+        <div class="col-lg-5 d-flex justify-content-center">
+            {% if profile.photo %}
+            <div style="position: relative;">
+
+                <!-- Glow effect behind photo -->
+                <div style="position: absolute; inset: -20px; border-radius: 50%;
+                            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+                            filter: blur(20px);"></div>
+
+                <!-- Rotating dashed ring -->
+                <div style="position: absolute; inset: -12px; border-radius: 50%;
+                            border: 1px dashed #2a2a2a;
+                            animation: spin 20s linear infinite;"></div>
+
+                <!-- Photo -->
+                <img src="{{ profile.photo.url }}"
+                     alt="{{ profile.name }}"
+                     style="width: 280px; height: 280px; border-radius: 50%;
+                            object-fit: cover; object-position: top;
+                            border: 2px solid #2a2a2a;
+                            position: relative; z-index: 1;
+                            box-shadow: 0 0 60px rgba(0,0,0,0.8);">
+
+                <!-- Small floating badge -->
+                <div style="position: absolute; bottom: 12px; right: 0px; z-index: 2;
+                            background: #111; border: 1px solid #2a2a2a;
+                            border-radius: 99px; padding: 6px 14px;
+                            display: flex; align-items: center; gap: 6px;">
+                    <span style="width: 6px; height: 6px; border-radius: 50%;
+                                 background: #4CAF50; display: inline-block;"></span>
+                    <span style="font-size: 0.75rem; color: #aaa;">Open to work</span>
+                </div>
+
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+<hr class="section-divider">
+
+
+<!-- Projects -->
+<section id="projects" style="margin-bottom: 4rem;">
+    <p class="section-title">Projects</p>
+    <div class="row g-3">
+        {% for project in projects %}
+        <div class="col-md-6">
+            <div class="card p-4 h-100">
+                <div style="display:flex; justify-content:space-between; align-items:start;">
+                    <h5 style="color:#fff; font-weight:600; margin:0;">{{ project.title }}</h5>
+                    <a href="{% url 'project-detail' project.id %}"
+                       style="color:#555; font-size:1.2rem; text-decoration:none;">&nearr;</a>
+                </div>
+                <p style="color:#666; font-size:0.9rem; margin-top:0.75rem;">
+                    {{ project.description }}
+                </p>
+                <div style="margin-top:auto; padding-top:1rem;">
+                    {% for tech in project.get_tech_list %}
+                    <span class="tag">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+        {% empty %}
+        <p style="color:#555;">No projects yet — add them via the admin panel.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" style="margin-bottom: 4rem;">
+    <p class="section-title">Skills</p>
+    <div style="max-width: 500px;">
+        {% for skill in skills %}
+        <div style="margin-bottom: 1.25rem;">
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem;">
+                <span style="color:#ccc;">{{ skill.name }}</span>
+                <span style="color:#444;">{{ skill.level }}%</span>
+            </div>
+            <div class="skill-bar-bg">
+                <div class="skill-bar-fill" style="width: {{ skill.level }}%;"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" style="margin-bottom: 4rem;">
+    <p class="section-title">Experience</p>
+    {% for exp in experiences %}
+    <div style="display:flex; gap:1.5rem; margin-bottom:2rem;">
+
+        <!-- Timeline dot -->
+        <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="width:10px; height:10px; border-radius:50%; background:#fff; margin-top:5px; flex-shrink:0;"></div>
+            {% if not forloop.last %}
+            <div style="width:1px; background:#2a2a2a; flex:1; margin-top:6px;"></div>
+            {% endif %}
+        </div>
+
+        <!-- Content -->
+        <div style="flex:1; padding-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap; gap:4px;">
+                <div>
+                    <h5 style="color:#fff; font-weight:600; margin:0;">{{ exp.job_title }}</h5>
+                    <p style="color:#666; font-size:0.85rem; margin:2px 0 0;">
+                        {{ exp.company }}{% if exp.location %} · {{ exp.location }}{% endif %}
+                    </p>
+                </div>
+                <span style="color:#444; font-size:0.8rem; white-space:nowrap;">
+                    {{ exp.start_date }} — {% if exp.end_date %}{{ exp.end_date }}{% else %}Present{% endif %}
+                </span>
+            </div>
+            <p style="color:#777; font-size:0.88rem; margin-top:0.75rem; line-height:1.7;">
+                {{ exp.description }}
+            </p>
+        </div>
+    </div>
+    {% empty %}
+    <p style="color:#555;">No experience added yet.</p>
+    {% endfor %}
+</section>
+
+<!-- Education -->
+<section id="education" style="margin-bottom: 4rem;">
+    <p class="section-title">Education</p>
+    {% for edu in educations %}
+    <div class="card p-4 mb-3">
+        <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap; gap:8px;">
+            <div>
+                <h5 style="color:#fff; font-weight:600; margin:0;">{{ edu.degree }}</h5>
+                <p style="color:#666; font-size:0.85rem; margin:4px 0 0;">
+                    {{ edu.institution }}{% if edu.location %} · {{ edu.location }}{% endif %}
+                </p>
+            </div>
+            <div style="text-align:right;">
+                <span style="color:#444; font-size:0.8rem; display:block;">
+                    {{ edu.start_year }} — {% if edu.end_year %}{{ edu.end_year }}{% else %}Present{% endif %}
+                </span>
+                {% if edu.grade %}
+                <span style="color:#555; font-size:0.8rem;">{{ edu.grade }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p style="color:#555;">No education added yet.</p>
+    {% endfor %}
+</section>
+
+<!-- Certifications -->
+<section id="certifications" style="margin-bottom: 4rem;">
+    <p class="section-title">Certifications</p>
+    <div class="row g-3">
+        {% for cert in certifications %}
+        <div class="col-md-4 col-sm-6">
+            <a href="{% url 'certificate-detail' cert.id %}"
+               style="text-decoration:none; display:block;">
+                <div class="card h-100" style="overflow:hidden; cursor:pointer;">
+
+                    <!-- Preview image area -->
+                    {% if cert.preview_image %}
+                        <!-- Generated PDF preview -->
+                        <img src="{{ cert.preview_image.url }}"
+                             alt="{{ cert.title }}"
+                             style="width:100%; height:180px;
+                                    object-fit:cover; object-position:top;
+                                    border-bottom:1px solid #1e1e1e;">
+
+                    {% elif cert.is_image and cert.certificate_file %}
+                        <!-- Direct image certificate -->
+                        <img src="{{ cert.certificate_file.url }}"
+                             alt="{{ cert.title }}"
+                             style="width:100%; height:180px;
+                                    object-fit:cover; object-position:top;
+                                    border-bottom:1px solid #1e1e1e;">
+
+                    {% else %}
+                        <!-- Fallback if preview not generated yet -->
+                        <div style="width:100%; height:180px; background:#161616;
+                                    border-bottom:1px solid #1e1e1e;
+                                    display:flex; flex-direction:column;
+                                    align-items:center; justify-content:center; gap:8px;">
+                            <div style="font-size:2.5rem;">📄</div>
+                            <span style="color:#555; font-size:0.75rem; letter-spacing:1px;">PDF CERTIFICATE</span>
+                        </div>
+                    {% endif %}
+
+                    <!-- Card info -->
+                    <div class="p-3">
+                        <h6 style="color:#fff; font-weight:600; margin:0 0 4px; font-size:0.85rem; line-height:1.4;">
+                            {{ cert.title }}
+                        </h6>
+                        <p style="color:#555; font-size:0.78rem; margin:0;">
+                            {{ cert.issuer }} · {{ cert.issued_date }}
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <p style="color:#555;">No certifications added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Contact -->
+{% comment %} <section id="contact" style="margin-bottom: 4rem;">
+    <p class="section-title">Contact</p>
+    <div class="card p-4" style="max-width:480px;">
+        <p style="color:#666; font-size:0.9rem; margin-bottom:1.25rem;">
+            Open to internships, freelance projects, and collaborations.
+        </p>
+        <a href="mailto:kakanirikhil7@gmail.com" class="btn btn-primary" style="width:fit-content;">
+            Send me an email
+        </a>
+    </div>
+</section> {% endcomment %}
+
+{% endblock %}

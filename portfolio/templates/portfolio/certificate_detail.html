@@ -1,0 +1,78 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block title %}{{ cert.title }} — Kakan{% endblock %}
+
+{% block content %}
+
+<!-- Back -->
+<a href="/#certifications"
+   style="color:#555; text-decoration:none; font-size:0.85rem;
+          display:inline-flex; align-items:center; gap:6px; margin-bottom:2.5rem;">
+    ← Back to portfolio
+</a>
+
+<!-- Header -->
+<div style="max-width:720px; margin-bottom:2rem;">
+    <p class="section-title">Certificate</p>
+    <h1 style="color:#fff; font-size:2rem; font-weight:700;
+               letter-spacing:-1px; margin-bottom:0.5rem;">
+        {{ cert.title }}
+    </h1>
+    <p style="color:#666; font-size:0.9rem; margin-bottom:1.5rem;">
+        Issued by <strong style="color:#aaa;">{{ cert.issuer }}</strong>
+        &nbsp;·&nbsp; {{ cert.issued_date }}
+    </p>
+
+    <!-- Download button -->
+    {% if cert.certificate_file %}
+    <a href="{% url 'certificate-download' cert.id %}"
+       class="btn-primary"
+       style="display:inline-flex; align-items:center; gap:8px;">
+        ⬇ Download Certificate
+    </a>
+    {% endif %}
+</div>
+
+<!-- Certificate display -->
+{% if cert.certificate_file %}
+    {% if cert.is_image %}
+    <!-- Show full image -->
+    <div style="max-width:860px; margin-top:2rem;">
+        <img src="{{ cert.certificate_file.url }}"
+             alt="{{ cert.title }}"
+             style="width:100%; border-radius:12px;
+                    border:1px solid #1e1e1e; box-shadow:0 0 40px rgba(0,0,0,0.5);">
+    </div>
+
+    {% elif cert.is_pdf %}
+    <!-- Embed PDF viewer -->
+    <div style="max-width:860px; margin-top:2rem;">
+        <div style="background:#111; border:1px solid #1e1e1e;
+                    border-radius:12px; overflow:hidden;">
+            <iframe src="{{ cert.certificate_file.url }}"
+                    width="100%"
+                    height="600px"
+                    style="border:none; display:block;"
+                    title="{{ cert.title }}">
+                <p style="color:#666; padding:2rem;">
+                    Your browser can't display PDFs inline.
+                    <a href="{% url 'certificate-download' cert.id %}"
+                       style="color:#fff;">Download it here</a> instead.
+                </p>
+            </iframe>
+        </div>
+        <p style="color:#444; font-size:0.78rem; margin-top:0.75rem; text-align:center;">
+            Can't see the PDF? Use the download button above.
+        </p>
+    </div>
+    {% endif %}
+
+{% else %}
+<div style="max-width:860px; margin-top:2rem; padding:4rem;
+            background:#111; border:1px solid #1e1e1e; border-radius:12px;
+            text-align:center;">
+    <p style="color:#555;">No certificate file uploaded yet.</p>
+</div>
+{% endif %}
+
+{% endblock %}
