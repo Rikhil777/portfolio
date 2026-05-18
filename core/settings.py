@@ -27,7 +27,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-local-dev-key-here')
 # DEBUG = True
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['web-production-405e6.up.railway.app', '127.0.0.1', 'localhost']
 
 
 JAZZMIN_SETTINGS = {
