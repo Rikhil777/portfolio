@@ -19,8 +19,8 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 # Only enforce secure cookies on production, not locally
-SESSION_COOKIE_SECURE = not DEBUG
-CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 # ── Jazzmin ───────────────────────────────────────────────
 JAZZMIN_SETTINGS = {
