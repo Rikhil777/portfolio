@@ -142,12 +142,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # ── Database ──────────────────────────────────────────────
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# --- Database ---
+# Railway sets a database URL env var. Use it in production.
+# Locally, fall back to SQLite so development still works.
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    # dj-database-url is a lightweight dependency to parse DATABASE_URL
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+
 
 # ── Email ─────────────────────────────────────────────────
 # IMPORTANT: move these to Railway environment variables!
