@@ -6,7 +6,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your-local-dev-key-here')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
@@ -16,7 +16,11 @@ ALLOWED_HOSTS = ['web-production-405e6.up.railway.app', '127.0.0.1', 'localhost'
 CSRF_TRUSTED_ORIGINS = [
     'https://web-production-405e6.up.railway.app',
 ]
-SESSION_COOKIE_SECURE = True
+
+
+# Only enforce secure cookies on production, not locally
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 # ── Jazzmin ───────────────────────────────────────────────
 JAZZMIN_SETTINGS = {
@@ -172,14 +176,13 @@ USE_TZ        = True
 STATIC_URL        = '/static/'
 STATICFILES_DIRS  = [os.path.join(BASE_DIR, 'portfolio/static')]
 STATIC_ROOT       = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ── Media files → Cloudinary ──────────────────────────────
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-# Cloudinary direct config
 cloudinary.config(
     cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
     api_key    = os.environ.get('CLOUDINARY_API_KEY'),
@@ -192,4 +195,12 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# New setting name for Django 4.2+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
