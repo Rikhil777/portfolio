@@ -96,9 +96,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary',               # add this
-    'cloudinary_storage',  
-    'django.contrib.staticfiles',     # add this
+    'django.contrib.staticfiles',  # staticfiles FIRST
+    'cloudinary',
+    'cloudinary_storage',          # cloudinary AFTER staticfiles
     'portfolio',
 ]
 
