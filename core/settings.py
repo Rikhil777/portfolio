@@ -10,10 +10,18 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-dev-key')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.onrender.com']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    '.onrender.com',
+    'rikhilkakani.online',
+    'www.rikhilkakani.online',
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
+    'https://rikhilkakani.online',
+    'https://www.rikhilkakani.online',
 ]
 
 JAZZMIN_SETTINGS = {
