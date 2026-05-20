@@ -1,28 +1,17 @@
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 
-from dotenv import load_dotenv
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure--=w1v)f95lb2vt9o59-m0y*%v*s2nzjkm^e@^b1@tjz=v9v&pi'
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = True
 
-ALLOWED_HOSTS = ['web-production-405e6.up.railway.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-# ── CSRF Fix ──────────────────────────────────────────────
-CSRF_TRUSTED_ORIGINS = [
-    'https://web-production-405e6.up.railway.app',
-]
-
-
-# Only enforce secure cookies on production, not locally
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-
-# ── Jazzmin ───────────────────────────────────────────────
 JAZZMIN_SETTINGS = {
     "site_title": "Rikhil Admin",
     "site_header": "Rikhil Portfolio",
@@ -95,7 +84,6 @@ JAZZMIN_UI_TWEAKS = {
     },
 }
 
-# ── Apps ──────────────────────────────────────────────────
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',
@@ -103,16 +91,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',  # staticfiles FIRST
-    'cloudinary',
-    'cloudinary_storage',          # cloudinary AFTER staticfiles
+    'django.contrib.staticfiles',
     'portfolio',
 ]
 
-# ── Middleware ────────────────────────────────────────────
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -141,30 +125,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# ── Database ──────────────────────────────────────────────
-# --- Database ---
-# Railway sets a database URL env var. Use it in production.
-# Locally, fall back to SQLite so development still works.
-DATABASE_URL = os.environ.get('DATABASE_URL')
-
-if DATABASE_URL:
-    # dj-database-url is a lightweight dependency to parse DATABASE_URL
-    import dj_database_url
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
-
-
-# ── Email ─────────────────────────────────────────────────
-# IMPORTANT: move these to Railway environment variables!
 EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST          = 'smtp.gmail.com'
 EMAIL_PORT          = 587
@@ -172,7 +139,6 @@ EMAIL_USE_TLS       = True
 EMAIL_HOST_USER     = os.environ.get('EMAIL_HOST_USER', 'kakanirikhil7@gmail.com')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'fgcs nxbc tios hyxf')
 
-# ── Password validation ───────────────────────────────────
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -180,41 +146,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# ── Internationalisation ──────────────────────────────────
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE     = 'UTC'
 USE_I18N      = True
 USE_TZ        = True
 
-# ── Static files ──────────────────────────────────────────
-STATIC_URL        = '/static/'
-STATICFILES_DIRS  = [os.path.join(BASE_DIR, 'portfolio/static')]
-STATIC_ROOT       = os.path.join(BASE_DIR, 'staticfiles')
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_URL       = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'portfolio/static')]
+STATIC_ROOT      = os.path.join(BASE_DIR, 'staticfiles')
 
-# ── Media files → Cloudinary ──────────────────────────────
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-cloudinary.config(
-    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    api_key    = os.environ.get('CLOUDINARY_API_KEY'),
-    api_secret = os.environ.get('CLOUDINARY_API_SECRET'),
-)
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY'   : os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-}
-
-# New setting name for Django 4.2+
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",  # removed 'Manifest'
-    },
-}
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
