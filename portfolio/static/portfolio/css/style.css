@@ -211,6 +211,16 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+
+.btn {
+    padding: 12px 24px;
+    background: #00ff88;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
 .form-input:focus { border-color: #555; }
 
 /* ── Divider ────────────────────────────────── */
@@ -229,6 +239,59 @@ body {
     margin-bottom: 1rem;
     border: 1px solid #1e1e1e;
 }
+
+
+
+.contact-form {
+    max-width: 650px;
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 18px;
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.contact-btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    background: #1d4ed8;
+}
+
+
 
 @keyframes spin {
     from { transform: rotate(0deg); }

@@ -12,30 +12,33 @@
     <form method="POST">
         {% csrf_token %}
 
-        <div style="margin-bottom:1.25rem;">
-            <label style="color:#aaa; font-size:0.8rem; display:block; margin-bottom:6px;">Your Name</label>
-            <input type="text" name="name" required
-                style="width:100%; background:#161616; border:1px solid #2a2a2a; border-radius:8px;
-                       color:#fff; padding:10px 14px; font-size:0.9rem; outline:none;">
-        </div>
+        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
 
-        <div style="margin-bottom:1.25rem;">
-            <label style="color:#aaa; font-size:0.8rem; display:block; margin-bottom:6px;">Your Email</label>
-            <input type="email" name="email" required
-                style="width:100%; background:#161616; border:1px solid #2a2a2a; border-radius:8px;
-                       color:#fff; padding:10px 14px; font-size:0.9rem; outline:none;">
-        </div>
+    <input type="hidden" name="access_key" value="64604f77-86fd-41ed-a88c-70a27033a26b">
+    <input type="hidden"
+           name="redirect"
+           value="https://rikhilkakani.online/contact-success/">
 
-        <div style="margin-bottom:1.5rem;">
-            <label style="color:#aaa; font-size:0.8rem; display:block; margin-bottom:6px;">Message</label>
-            <textarea name="message" rows="5" required
-                style="width:100%; background:#161616; border:1px solid #2a2a2a; border-radius:8px;
-                       color:#fff; padding:10px 14px; font-size:0.9rem; outline:none; resize:vertical;"></textarea>
-        </div>
+    <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required>
+    </div>
 
-        <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;">
-            Send Message
-        </button>
-    </form>
+    <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+    </div>
+
+    <button type="submit" class="contact-btn">
+        Send Message
+    </button>
+
+</form>
+    </form> 
 </section>
 {% endblock %}

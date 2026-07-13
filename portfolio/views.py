@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
 from django.conf import settings
-from .forms import ContactForm
 from .models import Project, Skill, Experience, Education, Certification, Profile
 from django.http import FileResponse, Http404
 import os
@@ -52,25 +50,27 @@ def certificate_download(request, pk):
         filename=filename
     )
 
+# def contact(request):
+#     if request.method == 'POST':
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             name    = form.cleaned_data['name']
+#             email   = form.cleaned_data['email']
+#             message = form.cleaned_data['message']
+
+#             send_mail(
+#                 subject=f'Portfolio contact from {name}',
+#                 message=f'From: {email}\n\n{message}',
+#                 from_email=settings.EMAIL_HOST_USER,
+#                 recipient_list=[settings.EMAIL_HOST_USER],
+#             )
+#             return redirect('contact-success')
+#     else:
+#         form = ContactForm()
+
+#     return render(request, 'portfolio/contact.html', {'form': form})
 def contact(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            name    = form.cleaned_data['name']
-            email   = form.cleaned_data['email']
-            message = form.cleaned_data['message']
-
-            send_mail(
-                subject=f'Portfolio contact from {name}',
-                message=f'From: {email}\n\n{message}',
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[settings.EMAIL_HOST_USER],
-            )
-            return redirect('contact-success')
-    else:
-        form = ContactForm()
-
-    return render(request, 'portfolio/contact.html', {'form': form})
+    return render(request, 'portfolio/contact.html')
 
 def contact_success(request):
     return render(request, 'portfolio/contact_success.html')
