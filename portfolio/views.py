@@ -71,6 +71,3 @@ def certificate_download(request, pk):
 #     return render(request, 'portfolio/contact.html', {'form': form})
 def contact(request):
     return render(request, 'portfolio/contact.html')
-
-def contact_success(request):
-    return render(request, 'portfolio/contact_success.html')
